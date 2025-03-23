@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoreGame.ink - Play Train Miner and More Free Online Games</title>
+    <meta name="description" content="Discover Train Miner and other exciting online games at MoreGame.ink. Play free browser games with no download required.">
+    <link rel="canonical" href="https://moregame.ink/">
+    
+    <style>
+        :root {
+            --apple-blue: #007AFF;
+            --apple-green: #34C759;
+            --apple-indigo: #5856D6;
+            --apple-orange: #FF9500;
+            --apple-pink: #FF2D55;
+            --apple-purple: #AF52DE;
+            --apple-red: #FF3B30;
+            --apple-teal: #5AC8FA;
+            --apple-yellow: #FFCC00;
+            --apple-gray1: #8E8E93;
+            --apple-gray2: #AEAEB2;
+            --apple-gray3: #C7C7CC;
+            --apple-gray4: #D1D1D6;
+            --apple-gray5: #E5E5EA;
+            --apple-gray6: #F2F2F7;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--apple-gray6);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--apple-blue);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--apple-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--apple-blue);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--apple-blue), var(--apple-purple));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--apple-blue);
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section {
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        .featured-game {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        
+        .game-iframe-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+        }
+        
+        .game-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .game-details {
+            padding: 20px;
+        }
+        
+        .game-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--apple-blue);
+        }
+        
+        .game-description {
+            margin-bottom: 15px;
+        }
+        
+        .game-info {
+            margin-top: 20px;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 250px;
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .category-adventure {
+            color: var(--apple-green);
+        }
+        
+        .category-action {
+            color: var(--apple-red);
+        }
+        
+        .category-puzzle {
+            color: var(--apple-yellow);
+        }
+        
+        .category-strategy {
+            color: var(--apple-teal);
+        }
+        
+        .top-games {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-thumb {
+            width: 100%;
+            height: 160px;
+            background-color: var(--apple-gray5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .game-thumb .rank {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--apple-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .game-card-details {
+            padding: 15px;
+        }
+        
+        .game-card-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .game-card-details p {
+            color: var(--apple-gray1);
+            font-size: 14px;
+        }
+        
+        .new-games {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .new-game {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--apple-red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .new-game-thumb {
+            width: 100%;
+            height: 160px;
+            background-color: var(--apple-gray5);
+        }
+        
+        .new-game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .new-game-details {
+            padding: 15px;
+        }
+        
+        .new-game-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .new-game-details p {
+            color: var(--apple-gray1);
+            font-size: 14px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--apple-gray4);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--apple-gray3);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="https://moregame.ink" class="logo">More<span>Game</span>.ink</a>
+                <button class="mobile-menu-btn">☰</button>
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#top-games">Top Games</a></li>
+                        <li><a href="#new-games">New Games</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Discover and Play the Best Online Games</h1>
+            <p>MoreGame.ink offers a curated collection of free browser games for all types of players.</p>
+            <a href="#featured-game" class="cta-button">Play Now</a>
+        </div>
+    </section>
+    
+    <section id="featured-game" class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Game</h2>
+            <div class="featured-game">
+                <div class="game-iframe-container">
+                    <iframe src="https://play.famobi.com/train-miner" allowfullscreen></iframe>
+                </div>
+                <div class="game-details">
+                    <h2>Train Miner</h2>
+                    <p class="game-description">Control a mining train through challenging underground tunnels, collect valuable resources, and upgrade your mining operation.</p>
+                    <div class="game-info">
+                        <p>Train Miner is an addictive resource management game that combines elements of strategy and timing. Navigate through increasingly difficult mine shafts, avoid obstacles, and gather precious minerals to expand your mining empire. With intuitive controls and progressively challenging levels, Train Miner offers hours of engaging gameplay suitable for players of all ages.</p>
+                        <p>The game features multiple upgradeble train cars, various mining locations with unique resources, and special power-ups to enhance your mining efficiency. Plan your route carefully, manage your fuel consumption, and become the ultimate mining tycoon!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="categories" class="section">
+        <div class="container">
+            <h2 class="section-title">Game Categories</h2>
+            <div class="categories">
+                <div class="category-card">
+                    <a href="#">
+                        <div class="category-icon category-adventure">●</div>
+                        <h3>Adventure</h3>
+                        <p>Explore exciting worlds</p>
+                    </a>
+                </div>
+                <div class="category-card">
+                    <a href="#">
+                        <div class="category-icon category-action">●</div>
+                        <h3>Action</h3>
+                        <p>Test your reflexes</p>
+                    </a>
+                </div>
+                <div class="category-card">
+                    <a href="#">
+                        <div class="category-icon category-puzzle">●</div>
+                        <h3>Puzzle</h3>
+                        <p>Challenge your mind</p>
+                    </a>
+                </div>
+                <div class="category-card">
+                    <a href="#">
+                        <div class="category-icon category-strategy">●</div>
+                        <h3>Strategy</h3>
+                        <p>Plan your victory</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="top-games" class="section">
+        <div class="container">
+            <h2 class="section-title">Top Rated Games</h2>
+            <div class="top-games">
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <div class="rank">1</div>
+                        <img src="/api/placeholder/280/160" alt="Cave Explorer">
+                    </div>
+                    <div class="game-card-details">
+                        <h3>Cave Explorer</h3>
+                        <p>Adventure into mysterious caverns</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <div class="rank">2</div>
+                        <img src="/api/placeholder/280/160" alt="Pixel Racer">
+                    </div>
+                    <div class="game-card-details">
+                        <h3>Pixel Racer</h3>
+                        <p>High-speed retro racing challenge</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <div class="rank">3</div>
+                        <img src="/api/placeholder/280/160" alt="Logic Master">
+                    </div>
+                    <div class="game-card-details">
+                        <h3>Logic Master</h3>
+                        <p>Solve increasingly difficult puzzles</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <div class="rank">4</div>
+                        <img src="/api/placeholder/280/160" alt="Kingdom Builder">
+                    </div>
+                    <div class="game-card-details">
+                        <h3>Kingdom Builder</h3>
+                        <p>Construct and defend your realm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="new-games" class="section">
+        <div class="container">
+            <h2 class="section-title">New Releases</h2>
+            <div class="new-games">
+                <div class="new-game">
+                    <div class="new-badge">NEW</div>
+                    <div class="new-game-thumb">
+                        <img src="/api/placeholder/280/160" alt="Rocket Launch">
+                    </div>
+                    <div class="new-game-details">
+                        <h3>Rocket Launch</h3>
+                        <p>Navigate through space obstacles</p>
+                    </div>
+                </div>
+                <div class="new-game">
+                    <div class="new-badge">NEW</div>
+                    <div class="new-game-thumb">
+                        <img src="/api/placeholder/280/160" alt="Puzzle Quest">
+                    </div>
+                    <div class="new-game-details">
+                        <h3>Puzzle Quest</h3>
+                        <p>Solve puzzles to progress the story</p>
+                    </div>
+                </div>
+                <div class="new-game">
+                    <div class="new-badge">NEW</div>
+                    <div class="new-game-thumb">
+                        <img src="/api/placeholder/280/160" alt="Ocean Dive">
+                    </div>
+                    <div class="new-game-details">
+                        <h3>Ocean Dive</h3>
+                        <p>Discover underwater treasures</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>MoreGame.ink is a curated platform offering free-to-play browser games for all ages and interests.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#top-games">Top Games</a></li>
+                        <li><a href="#new-games">New Games</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MoreGame.ink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
