@@ -1,220 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5RK84TKE5V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5RK84TKE5V');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoreGame.ink - Play Free Online Games Instantly</title>
-    <meta name="description" content="Play free online games instantly on MoreGame.ink. Enjoy a variety of casual games, puzzles, action games and more without downloading.">
-    <link rel="canonical" href="https://moregame.ink">
+    <title>MoreGame.ink - Play Free Online Games</title>
+    <!-- 加载Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" defer></script>
+    <!-- 加载Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <!-- 加载游戏数据和逻辑 -->
+    <script src="games-data.js" defer></script>
     <style>
-        :root {
-            --apple-blue: #007aff;
-            --apple-gray: #f5f5f7;
-            --apple-dark: #1d1d1f;
-            --apple-green: #34c759;
-            --apple-orange: #ff9500;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--apple-gray);
-            color: var(--apple-dark);
-        }
-        .apple-blue {
-            background-color: var(--apple-blue);
-        }
-        .text-apple-blue {
-            color: var(--apple-blue);
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
         .game-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .game-iframe-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .game-iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            transition: all 0.3s;
         }
         .category-pill:hover {
-            background-color: var(--apple-blue);
+            background-color: #007aff;
             color: white;
             cursor: pointer;
         }
-        .search-box:focus {
-            border-color: var(--apple-blue);
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
-        }
-        .featured-game {
-            background: linear-gradient(135deg, var(--apple-blue) 0%, #0055b8 100%);
-        }
-        @media (max-width: 768px) {
-            .game-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 480px) {
-            .game-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
-<body>
-    <div x-data="{ 
-        searchTerm: '',
-        activeCategory: 'all',
-        games: [
-            { 
-                title: 'Train Miner', 
-                url: 'https://play.famobi.com/train-miner', 
-                category: 'puzzle',
-                theme: 'trains',
-                description: 'Control your train and collect resources in this addictive puzzle adventure.'
-            },
-            { 
-                title: 'Rise Up', 
-                url: 'https://play.famobi.com/rise-up', 
-                category: 'arcade',
-                theme: 'casual',
-                description: 'Protect the balloon from obstacles as it rises higher and higher.'
-            },
-            { 
-                title: 'Giant Rush', 
-                url: 'https://play.famobi.com/giant-rush', 
-                category: 'action',
-                theme: 'running',
-                description: 'Grow bigger as you run through obstacles and collect power-ups.'
-            },
-            { 
-                title: 'Western Sniper', 
-                url: 'https://play.famobi.com/western-sniper', 
-                category: 'shooting',
-                theme: 'cowboy',
-                description: 'Test your aim in this wild west themed shooting gallery.'
-            },
-            { 
-                title: 'Go Escape', 
-                url: 'https://play.famobi.com/go-escape', 
-                category: 'strategy',
-                theme: 'escape',
-                description: 'Find your way through challenging mazes and obstacles.'
-            },
-            { 
-                title: 'Color Fill 3D', 
-                url: 'https://play.famobi.com/color-fill-3d', 
-                category: 'puzzle',
-                theme: 'color',
-                description: 'Fill the board with colors in this relaxing 3D puzzle game.'
-            },
-            { 
-                title: 'Spot the Cat', 
-                url: 'https://play.famobi.com/spot-the-cat', 
-                category: 'puzzle',
-                theme: 'animals',
-                description: 'Find the hidden cats in increasingly challenging scenes.'
-            },
-            { 
-                title: 'Color Roll 3D', 
-                url: 'https://play.famobi.com/color-roll-3d', 
-                category: 'arcade',
-                theme: 'color',
-                description: 'Roll and match colors in this challenging 3D arcade game.'
-            },
-            { 
-                title: 'Color Water Sort 3D', 
-                url: 'https://play.famobi.com/color-water-sort-3d', 
-                category: 'puzzle',
-                theme: 'color',
-                description: 'Sort the colored water by pouring between containers.'
-            },
-            { 
-                title: 'Braindom', 
-                url: 'https://play.famobi.com/braindom', 
-                category: 'puzzle',
-                theme: 'brain',
-                description: 'Test your wits with a collection of brain-teasing puzzles.'
-            },
-            { 
-                title: 'Sort It', 
-                url: 'https://play.famobi.com/sort-it', 
-                category: 'puzzle',
-                theme: 'sorting',
-                description: 'Sort different colored balls into their matching tubes.'
-            },
-            { 
-                title: 'Parking Jam', 
-                url: 'https://play.famobi.com/parking-jam', 
-                category: 'puzzle',
-                theme: 'cars',
-                description: 'Solve parking puzzles by moving cars out of the way.'
-            }
-        ],
-        categories: ['all', 'puzzle', 'arcade', 'action', 'shooting', 'strategy', 'racing', 'sports', 'casual'],
-        themes: ['all', 'color', 'animals', 'trains', 'casual', 'running', 'cowboy', 'escape', 'brain', 'sorting', 'cars'],
-        
-        get filteredGames() {
-            let filtered = this.games;
-            
-            if (this.activeCategory !== 'all') {
-                filtered = filtered.filter(game => game.category === this.activeCategory);
-            }
-            
-            if (this.searchTerm.trim() !== '') {
-                const searchLower = this.searchTerm.toLowerCase();
-                filtered = filtered.filter(game => 
-                    game.title.toLowerCase().includes(searchLower) || 
-                    game.description.toLowerCase().includes(searchLower) ||
-                    game.category.toLowerCase().includes(searchLower) ||
-                    game.theme.toLowerCase().includes(searchLower)
-                );
-            }
-            
-            return filtered;
-        },
-        
-        setCategory(category) {
-            this.activeCategory = category;
-        },
-
-        getThemeCount(theme) {
-            return this.games.filter(game => game.theme === theme).length;
-        },
-
-        getCategoryCount(category) {
-            return this.games.filter(game => game.category === category).length;
-        },
-
-        loadAllGames() {
-            // This would be expanded with your full game list
-            console.log('Loading all games...');
-        }
-    }">
-        <!-- Header -->
-        <header class="sticky top-0 z-50 bg-white shadow-md">
+<body class="bg-gray-100 min-h-screen">
+    <div x-data="app">
+        <!-- 页面头部导航 -->
+        <header class="bg-white shadow-md sticky top-0 z-50">
             <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
                 <div class="flex items-center mb-4 md:mb-0">
                     <a href="/" class="flex items-center">
-                        <span class="text-xl md:text-2xl font-bold text-apple-blue">MoreGame<span class="text-gray-800">.ink</span></span>
+                        <span class="text-xl md:text-2xl font-bold text-blue-600">MoreGame<span class="text-gray-800">.ink</span></span>
                     </a>
                 </div>
                 
@@ -223,27 +47,22 @@
                         type="text" 
                         x-model="searchTerm" 
                         placeholder="Search games by title, category or theme..." 
-                        class="search-box w-full py-2 px-4 rounded-full border border-gray-300 focus:outline-none transition duration-300"
+                        class="w-full py-2 px-4 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500"
                     >
-                    <div class="absolute right-3 top-2 text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- Hero Section -->
-        <section class="py-8 md:py-16 px-4 featured-game text-white">
+        <!-- 宣传区域 -->
+        <section class="py-8 md:py-16 bg-blue-600 text-white">
             <div class="container mx-auto text-center">
                 <h1 class="text-3xl md:text-5xl font-bold mb-4">Play Free Online Games Instantly</h1>
                 <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">No downloads required. Just click and enjoy countless hours of fun with our collection of free online games.</p>
-                <a href="#games" class="inline-block bg-white text-blue-600 font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300">Start Playing Now</a>
+                <a href="#games" class="inline-block bg-white text-blue-600 font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition">Start Playing Now</a>
             </div>
         </section>
 
-        <!-- Categories and Themes Section -->
+        <!-- 分类区域 -->
         <section class="py-8 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-2xl font-bold mb-6">Game Categories</h2>
@@ -253,7 +72,7 @@
                             x-text="category.charAt(0).toUpperCase() + category.slice(1) + (category !== 'all' ? ' (' + getCategoryCount(category) + ')' : '')"
                             @click="setCategory(category)"
                             :class="{'bg-blue-600 text-white': activeCategory === category, 'bg-gray-200 text-gray-800': activeCategory !== category}"
-                            class="category-pill px-4 py-2 rounded-full text-sm font-medium transition duration-300"
+                            class="category-pill px-4 py-2 rounded-full text-sm font-medium transition"
                         ></div>
                     </template>
                 </div>
@@ -264,56 +83,69 @@
                         <div 
                             x-text="theme.charAt(0).toUpperCase() + theme.slice(1) + (theme !== 'all' ? ' (' + getThemeCount(theme) + ')' : '')"
                             @click="searchTerm = theme === 'all' ? '' : theme"
-                            class="category-pill px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-800 transition duration-300"
+                            class="category-pill px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-800 transition"
                         ></div>
                     </template>
                 </div>
             </div>
         </section>
 
-        <!-- Games Grid Section -->
+        <!-- 游戏网格区域 -->
         <section id="games" class="py-8 bg-gray-100">
             <div class="container mx-auto px-4">
                 <h2 class="text-2xl font-bold mb-6">Popular Games</h2>
                 
-                <!-- No results message -->
                 <div x-show="filteredGames.length === 0" class="text-center py-8">
                     <p class="text-lg text-gray-600">No games found matching your search. Try a different keyword or category.</p>
                 </div>
                 
-                <div class="game-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     <template x-for="game in filteredGames" :key="game.title">
-                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                            <div class="game-iframe-container">
-                                <iframe :src="game.url" frameborder="0" allowfullscreen></iframe>
+                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="bg-gray-200 h-32 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
                             </div>
+                            
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold mb-2" x-text="game.title"></h3>
                                 <p class="text-gray-600 text-sm mb-3" x-text="game.description"></p>
-                                <div class="flex flex-wrap gap-2">
+                                <div class="flex flex-wrap gap-2 mb-4">
                                     <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded" x-text="game.category.charAt(0).toUpperCase() + game.category.slice(1)"></span>
                                     <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded" x-text="game.theme.charAt(0).toUpperCase() + game.theme.slice(1)"></span>
                                 </div>
+                                <a :href="game.url" target="_blank" class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded hover:bg-blue-700 transition">
+                                    Play Now
+                                </a>
                             </div>
                         </div>
                     </template>
                 </div>
-                
-                <div class="text-center mt-8">
-                    <button 
-                        @click="loadAllGames()"
-                        class="apple-blue text-white font-semibold py-3 px-8 rounded-full transition duration-300 hover:bg-blue-700"
-                    >
-                        Load More Games
-                    </button>
-                </div>
             </div>
         </section>
 
-        <!-- Featured Game Detail -->
-        <section class="py-8 bg-white">
+        <!-- 页脚 -->
+        <footer class="bg-gray-800 text-white py-8">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-bold mb-4">About MoreGame.ink</h3>
+                        <p class="text-gray-400 max-w-md">MoreGame.ink is your destination for free online games that you can play instantly without downloads.</p>
+                    </div>
                     <div>
-                        <h2 class="text-2xl font-bold mb-4">Featured Game: Train Miner</h2>
-                        <p class="text-gray-600 mb-4">Embark on an exciting railroad adventure where strategy meets resource management. Control your train through challenging terrains, collect valuable resources, and solve
+                        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white transition">Home</a></li>
+                            <li><a href="#games" class="hover:text-white transition">Games</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500">
+                    <p>&copy; 2025 MoreGame.ink. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
